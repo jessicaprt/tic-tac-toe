@@ -14,7 +14,6 @@ nodes: (for reference)
 
 '''
 
-
 from board import Board
 from tkinter import *
 from tkinter import messagebox
@@ -100,204 +99,45 @@ class Application(Frame):
 			strn2.set("Computer starts")
 			self.comp_player(9)
 
-	def move_0(self):
-		'''helper function for node 0
-		(check comments above for the node layout)
-		this function places the move on the board'''
-
+	def makemove(self, node):
 		global player
 		global b
 
-		if player == True and self.move0["text"] == "  ":
+		print(node)
+		if node == 0:
+			button = self.move0
+		elif node == 1:
+			button = self.move1
+		elif node == 2:
+			button = self.move2
+		elif node == 3:
+			button = self.move3
+		elif node == 4:
+			button = self.move4
+		elif node == 5:
+			button = self.move5
+		elif node == 6:
+			button = self.move6
+		elif node == 7:
+			button = self.move7
+		elif node == 8:
+			button = self.move8
+
+		if player == True and button["text"] == "  ":
 			y = "X"
-		elif player == False and self.move0["text"] == "  ":
+		elif player == False and button["text"] == "  ":
 			y = "O"
 		else:
 			raise ValueError("choose another button")
 
-		self.move0["text"] = y
-		
-		check = b.move(y, 0)
-		if (check == True) or (b.check_full_draw == True): #player wins
+		button["text"] = y
+
+		check = b.move(y, node)
+		if (check == True) or (b.check_full_draw == True):
 			self.newgame()
 		else:
-			self.comp_player(0)
+			self.comp_player(node)
 
-	def move_1(self):
-		'''helper function for node 1
-		(check comments above for the node layout)
-		this function places the move on the board'''
-		
-		global player
-		global b
-
-		if player == True and self.move1["text"] == "  " :
-			y = "X"
-		elif player == False and self.move1["text"] == "  ":
-			y = "O"
-		else:
-			raise ValueError("choose another button")
-
-		self.move1["text"] = y
-		check = b.move(y,1)
-		if (check == True) or (b.check_full_draw == True): #player wins
-			self.newgame()
-		else:
-			self.comp_player(1)
-
-	def move_2(self):
-		'''helper function for node 2
-		(check comments above for the node layout)
-		this function places the move on the board'''
-		
-		global player
-		global b
-
-		if player == True and self.move2["text"] == "  " :
-			y = "X"
-		elif player == False and self.move2["text"] == "  ":
-			y = "O"
-		else:
-			raise ValueError("choose another button")
-
-		self.move2["text"] = y
-		check = b.move(y,2)
-		if (check == True) or (b.check_full_draw == True): #player wins
-			self.newgame()
-		else:
-			self.comp_player(2)
-
-	def move_3(self):
-		'''helper function for node 3
-		(check comments above for the node layout)
-		this function places the move on the board'''
-		
-		global player
-		global b
-
-		if player == True and self.move3["text"] == "  ":
-			y = "X"
-		elif player == False and self.move3["text"] == "  ":
-			y = "O"
-		else:
-			raise ValueError("choose another button")
-
-		self.move3["text"] = y
-		check = b.move(y,3)
-		if (check == True) or (b.check_full_draw == True): #player wins
-			self.newgame()
-		else:
-			self.comp_player(3)
-
-	def move_4(self):
-		'''helper function for node 4
-		(check comments above for the node layout)
-		this function places the move on the board'''
-		
-		global player
-		global b
-
-		if player == True and self.move4["text"] == "  ":
-			y = "X"
-		elif player == False and self.move4["text"] == "  ":
-			y = "O"
-		else:
-			raise ValueError("choose another button")
-
-		self.move4["text"] = y
-		check = b.move(y,4)
-		if (check == True) or (b.check_full_draw == True): #player wins
-			self.newgame()
-		else:
-			self.comp_player(4)
-
-	def move_5(self):
-		'''helper function for node 5
-		(check comments above for the node layout)
-		this function places the move on the board'''
-		
-		global player
-		global b
-
-		if player == True and self.move5["text"] == "  ":
-			y = "X"
-		elif player == False and self.move5["text"] == "  ":
-			y = "O"
-		else:
-			raise ValueError("choose another button")
-
-		self.move5["text"] = y
-		check = b.move(y,5)
-		if (check == True) or (b.check_full_draw == True): #player wins
-			self.newgame()
-		else:
-			self.comp_player(5)
-
-	def move_6(self):
-		'''helper function for node 6
-		(check comments above for the node layout)
-		this function places the move on the board'''
-		
-		global player
-		global b
-
-		if player == True and self.move6["text"] == "  ":
-			y = "X"
-		elif player == False and self.move6["text"] == "  ":
-			y = "O"
-		else:
-			raise ValueError("choose another button")
-
-		self.move6["text"] = y
-		check = b.move(y,6)
-		if (check == True) or (b.check_full_draw == True): #player wins
-			self.newgame()
-		else:
-			self.comp_player(6)
-
-	def move_7(self):
-		'''helper function for node 7
-		(check comments above for the node layout)
-		this function places the move on the board'''
-		
-		global player
-		global b
-
-		if player == True and self.move7["text"] ==  "  ":
-			y = "X"
-		elif player == False and self.move7["text"] == "  ":
-			y = "O"
-		else:
-			raise ValueError("choose another button")
-
-		self.move7["text"] = y
-		check = b.move(y,7)
-		if (check == True) or (b.check_full_draw == True): #player wins
-			self.newgame()
-		else:
-			self.comp_player(7)
-		
-	def move_8(self):
-		'''helper function for node 8
-		(check comments above for the node layout)
-		this function places the move on the board'''
-		
-		global player
-		global b
-
-		if player == True and self.move8["text"] == "  ":
-			y = "X"
-		elif player == False and self.move8["text"] == "  ":
-			y = "O"
-		else:
-			raise ValueError("choose another button")
-
-		self.move8["text"] = y
-		check = b.move(y,8)
-		if (check == True) or (b.check_full_draw == True): #player wins
-			self.newgame()
-		else:
-			self.comp_player(8)
 
 	def comp_player(self, node):
 		''' generates the move in the input node for the computer'''
@@ -542,47 +382,47 @@ class Application(Frame):
 			activebackground = 'black', activeforeground = 'green', state = "disabled")
 
 		#for node 0
-		self.move0["command"] = self.move_0
+		self.move0["command"] = lambda: self.makemove(0)
 		self.move0.config(bg ='black', fg = 'green')
 		self.move0.grid({"row" : 1, "column" : 0})
 
 		#for node 1
-		self.move1["command"] = self.move_1
+		self.move1["command"] = lambda: self.makemove(1)
 		self.move1.config(bg ='black', fg = 'green')
 		self.move1.grid({"row" : 1, "column" : 1})
 
 		#for node 2
-		self.move2["command"] = self.move_2
+		self.move2["command"] = lambda: self.makemove(2)
 		self.move2.config(bg ='black', fg = 'green')
 		self.move2.grid({"row" : 1, "column" : 2})
 
 		#for node 3
-		self.move3["command"] = self.move_3
+		self.move3["command"] = lambda: self.makemove(3)
 		self.move3.config(bg ='black', fg = 'green')
 		self.move3.grid({"row" : 2, "column" : 0})
 
 		#for node 4
-		self.move4["command"] = self.move_4
+		self.move4["command"] = lambda: self.makemove(4)
 		self.move4.config(bg ='black', fg = 'green')
 		self.move4.grid({"row" : 2, "column" : 1})
 
 		#for node 5
-		self.move5["command"] = self.move_5
+		self.move5["command"] = lambda: self.makemove(5)
 		self.move5.config(bg ='black', fg = 'green')
 		self.move5.grid({"row" : 2, "column" : 2})
 
 		#for node 6
-		self.move6["command"] = self.move_6
+		self.move6["command"] = lambda: self.makemove(6)
 		self.move6.config(bg ='black', fg = 'green')
 		self.move6.grid({"row" : 3, "column" : 0})
 
 		#for node 7
-		self.move7["command"] = self.move_7
+		self.move7["command"] = lambda: self.makemove(7)
 		self.move7.config(bg ='black', fg = 'green')
 		self.move7.grid({"row" : 3, "column" : 1})
 
 		#for node 8
-		self.move8["command"] = self.move_8
+		self.move8["command"] = lambda: self.makemove(8)
 		self.move8.config(bg ='black', fg = 'green')
 		self.move8.grid({"row" : 3, "column" : 2})
 
@@ -638,5 +478,3 @@ class Application(Frame):
 root.geometry("450x620")
 app = Application(master=root)
 app.mainloop()
-
-
