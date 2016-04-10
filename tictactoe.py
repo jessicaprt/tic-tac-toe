@@ -27,10 +27,8 @@ root.title("tic tac toe (AN IMPOSSIBLE GAME)")
 
 
 ''' INITIALIZE GLOBAL VARIABLES '''
-#if player = True: x
-#if player = False: user
-#initialized to True, will be changed after select
-player = True
+player = True # 'X' if true, 'O' if false
+check = False # to check if the player chooses to let the computer make the first move
 
 b = Board()
 var = IntVar()
@@ -44,14 +42,48 @@ class Application(Frame):
 	def sel(self):
 		''' helper function for the radio buttons '''
 		global player
+		global check
+
 		label = Label(root)
+		label2 = Label(root)
 
-		#ater choosing a player in step 1, disable radio buttons
-		self.X["state"] = "disabled"
-		self.O["state"] = "disabled"
+		if player == True:
+			user = "X"
+		else:
+			user = "O"
 
-		#enable the board for playing!
-		if self.play["state"] == "disabled":
+		if var.get() == 1: #player "X" is selected
+			player = True
+			strn.set("Your player : X")
+
+			self.X["state"] = "disabled"
+			self.O["state"] = "disabled"
+			self.initmove(check)
+
+		elif var.get() == 2: #player "O" is selected
+			player = False
+			strn.set("Your player : O")
+
+			self.X["state"] = "disabled"
+			self.O["state"] = "disabled"
+			self.initmove(check)
+
+		if var.get() == 3: #player starts
+			check = False
+			strn2.set("You start")
+			self.play["state"] = "disabled"
+			self.comp["state"] = "disabled"
+			self.initmove(check)
+
+		elif (var.get() == 4): #computer starts
+			check = True
+			strn2.set("Computer starts")
+			self.play["state"] = "disabled"
+			self.comp["state"] = "disabled"
+			self.initmove(check)
+
+	def initmove(self, check):
+		if (self.play["state"] == "disabled") and (self.X["state"] == "disabled"):
 			self.move0["state"] = "active"
 			self.move1["state"] = "active"
 			self.move2["state"] = "active"
@@ -61,15 +93,11 @@ class Application(Frame):
 			self.move6["state"] = "active"
 			self.move7["state"] = "active"
 			self.move8["state"] = "active"
+		
+			if check == True:
+				self.comp_player(9)
 
-		if var.get() == 1: #playre "X" is selected
-			player = True
-			strn.set("Your player : X")
-		elif var.get() == 2: #player "O" is selected
-			player = False
-			strn.set("Your player : O")
-
-	def initmove(self):
+	'''def initmove(self):
 		global player
 		label2 = Label(root)
 
@@ -97,7 +125,9 @@ class Application(Frame):
 			strn2.set("You start")
 		elif var.get() == 4: #computer starts
 			strn2.set("Computer starts")
-			self.comp_player(9)
+			if self.X["state"] == "disabled":
+				
+				done = True'''
 
 	def makemove(self, button, node):
 		global player
@@ -213,10 +243,11 @@ class Application(Frame):
 		self.move8["state"] = "disabled"
 		strn.set("Setp 1: SELECT A PLAYER")
 		strn2.set("Step 2: Choose who starts")
-		self.X["state"] = "active"
-		self.O["state"] = "active"
-		self.play["state"] = "active"
-		self.comp["state"] = "active"
+		self.X["state"] = "normal"
+		self.O["state"] = "normal"
+		self.play["state"] = "normal"
+		self.comp["state"] = "normal"
+
 
 	def minimax(self, board, node, player):
 		'''MINIMAX ALGORITHM
@@ -425,10 +456,10 @@ class Application(Frame):
 		label2_text["pady"] = 10
 		label2_text.pack()
 		self.play = Radiobutton(root, text="I start", variable=var, value=3,
-                  command=self.initmove)
+                  command=self.sel)
 		self.play.pack( anchor = CENTER )
 		self.comp = Radiobutton(root, text="Comp starts", variable=var, value=4,
-                  command=self.initmove)
+                  command=self.sel)
 		self.comp.pack( anchor = CENTER )
 
 		#QUIT BUTTON
