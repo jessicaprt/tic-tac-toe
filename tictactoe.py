@@ -34,8 +34,8 @@ b = Board()
 var = IntVar()
 strn = StringVar()
 strn2 = StringVar()
-strn.set("Step 1: SELECT A PLAYER")
-strn2.set("Step 2: Choose who starts")
+strn.set("SELECT A PLAYER")
+strn2.set("Choose who starts")
 
 class Application(Frame):
 	'''front-end of the program'''	
