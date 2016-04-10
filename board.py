@@ -3,7 +3,7 @@ import random
 
 class Board:
 	'''back-end of the program'''
-	
+
 	def __init__(self):
 		'''initialicomes the board'''
 		self.board = [" "]*9
@@ -204,7 +204,6 @@ class Board:
 
 			maxscore = getmaxscore(all_val)
 
-
 			return maxscore
 
 		def min_val(board, node, user, comp, score, depth):
@@ -242,7 +241,5 @@ class Board:
 			user = "O"
 			comp = "X"
 		minimax_val = max_val(self, node, user, comp, 0, 0)
-
-		#print("NEXT MOVE:")
-		#print(minimax_val[0])
+		
 		return minimax_val[0]
