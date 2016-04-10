@@ -28,7 +28,7 @@ root.title("tic tac toe (AN IMPOSSIBLE GAME)")
 
 ''' INITIALIZE GLOBAL VARIABLES '''
 #if player = True: x
-#if player = False: y
+#if player = False: user
 #initialized to True, will be changed after select
 player = True
 
@@ -52,15 +52,15 @@ class Application(Frame):
 
 		#enable the board for playing!
 		if self.play["state"] == "disabled":
-			self.move0["state"] = "normal"
-			self.move1["state"] = "normal"
-			self.move2["state"] = "normal"
-			self.move3["state"] = "normal"
-			self.move4["state"] = "normal"
-			self.move5["state"] = "normal"
-			self.move6["state"] = "normal"
-			self.move7["state"] = "normal"
-			self.move8["state"] = "normal"
+			self.move0["state"] = "active"
+			self.move1["state"] = "active"
+			self.move2["state"] = "active"
+			self.move3["state"] = "active"
+			self.move4["state"] = "active"
+			self.move5["state"] = "active"
+			self.move6["state"] = "active"
+			self.move7["state"] = "active"
+			self.move8["state"] = "active"
 
 		if var.get() == 1: #playre "X" is selected
 			player = True
@@ -74,24 +74,24 @@ class Application(Frame):
 		label2 = Label(root)
 
 		if player == True:
-			y = "X"
+			user = "X"
 		else:
-			y = "O"
+			user = "O"
 
 		#disable radio buttons after player selects who goes first
 		self.play["state"] = "disabled"
 		self.comp["state"] = "disabled"
 		if self.X["state"] == "disabled":
 			#enable board for playing!
-			self.move0["state"] = "normal"
-			self.move1["state"] = "normal"
-			self.move2["state"] = "normal"
-			self.move3["state"] = "normal"
-			self.move4["state"] = "normal"
-			self.move5["state"] = "normal"
-			self.move6["state"] = "normal"
-			self.move7["state"] = "normal"
-			self.move8["state"] = "normal"
+			self.move0["state"] = "active"
+			self.move1["state"] = "active"
+			self.move2["state"] = "active"
+			self.move3["state"] = "active"
+			self.move4["state"] = "active"
+			self.move5["state"] = "active"
+			self.move6["state"] = "active"
+			self.move7["state"] = "active"
+			self.move8["state"] = "active"
 
 		if var.get() == 3: #player starts
 			strn2.set("You start")
@@ -99,41 +99,22 @@ class Application(Frame):
 			strn2.set("Computer starts")
 			self.comp_player(9)
 
-	def makemove(self, node):
+	def makemove(self, button, node):
 		global player
 		global b
 
-		print(node)
-		if node == 0:
-			button = self.move0
-		elif node == 1:
-			button = self.move1
-		elif node == 2:
-			button = self.move2
-		elif node == 3:
-			button = self.move3
-		elif node == 4:
-			button = self.move4
-		elif node == 5:
-			button = self.move5
-		elif node == 6:
-			button = self.move6
-		elif node == 7:
-			button = self.move7
-		elif node == 8:
-			button = self.move8
-
 		if player == True and button["text"] == "  ":
-			y = "X"
+			user = "X"
 		elif player == False and button["text"] == "  ":
-			y = "O"
+			user = "O"
 		else:
 			raise ValueError("choose another button")
 
-		button["text"] = y
+		button["text"] = user
 
-		check = b.move(y, node)
+		check = b.move(user, node)
 		if (check == True) or (b.check_full_draw == True):
+			print("g")
 			self.newgame()
 		else:
 			self.comp_player(node)
@@ -147,9 +128,9 @@ class Application(Frame):
 
 		player = not player
 		if player == True:
-			y = 'X'
+			user = 'X'
 		else:
-			y = 'O'
+			user = 'O'
 
 		check = False
 
@@ -161,39 +142,39 @@ class Application(Frame):
 			# CALL MINIMAX TO CALCULATE NEXT MOVE
 			move = self.minimax(b, node, player)
 		if move == 0:
-			self.move0["text"] = y
-			check = b.move(y, 0)
+			self.move0["text"] = user
+			check = b.move(user, 0)
 		elif move == 1:
-			self.move1["text"] = y
-			check = b.move(y, 1)
+			self.move1["text"] = user
+			check = b.move(user, 1)
 		elif move == 2:
-			self.move2["text"] = y
-			check = b.move(y, 2)
+			self.move2["text"] = user
+			check = b.move(user, 2)
 		elif move == 3:
-			self.move3["text"] = y
-			check = b.move(y, 3)
+			self.move3["text"] = user
+			check = b.move(user, 3)
 		elif move == 4:
-			self.move4["text"] = y
-			check = b.move(y, 4)
+			self.move4["text"] = user
+			check = b.move(user, 4)
 		elif move == 5:
-			self.move5["text"] = y
-			check = b.move(y, 5)
+			self.move5["text"] = user
+			check = b.move(user, 5)
 		elif move == 6:
-			self.move6["text"] = y
-			check = b.move(y, 6)
+			self.move6["text"] = user
+			check = b.move(user, 6)
 		elif move == 7:
-			self.move7["text"] = y
-			check = b.move(y, 7)
+			self.move7["text"] = user
+			check = b.move(user, 7)
 		elif move == 8:
-			self.move8["text"] = y
-			check = b.move(y, 8)
-		elif move == -1:
-			#draw
-			messagebox.showinfo("tic tac toe", "IT'S A DRAW!")
+			self.move8["text"] = user
+			check = b.move(user, 8)
+
+		if (check == True): #player wins
 			self.newgame()
 
-		if (check == True) or (b.check_full_draw == True): #player wins
+		elif (b.check_full_draw() == True):
 			self.newgame()
+
 		else:
 			player = not player	
 
@@ -281,38 +262,38 @@ class Application(Frame):
 			return best
 
 
-		def max_val(board, node, y, z, score, depth):
+		def max_val(board, node, user, comp, score, depth):
 			b_buf = Board()
 			b_buf = board.copy_temp()
 			m_buf = b_buf.empty_moves()
 
 			all_val = []
 			for succ in m_buf:
-				b_buf.temp_move(z, succ)
-				if b_buf.check_win(z):
+				b_buf.temp_move(comp, succ)
+				if b_buf.check_win(comp):
 					score = 10-depth
 					val = (succ, score)
 					all_val.append(val)
-					b_buf.del_move(z,succ)
+					b_buf.del_move(comp,succ)
 
-				elif b_buf.check_draw(y,z):
+				elif b_buf.check_draw(user,comp):
 					val = (succ, 0)
 					all_val.append(val)
-					b_buf.del_move(z,succ)
+					b_buf.del_move(comp,succ)
 
 				else:
 					depth = depth + 1
-					buf = min_val(b_buf, succ, y, z, score, depth)
+					buf = min_val(b_buf, succ, user, comp, score, depth)
 					val = (succ, buf[1])
 					all_val.append(val)
-					b_buf.del_move(z,succ)
+					b_buf.del_move(comp,succ)
 
 			maxscore = getmaxscore(all_val)
 
 
 			return maxscore
 
-		def min_val(board, node, y, z, score, depth):
+		def min_val(board, node, user, comp, score, depth):
 			#initialize temporary board for checking the moves
 			b_buf = Board()
 			b_buf = board.copy_temp()
@@ -320,19 +301,19 @@ class Application(Frame):
 
 			all_val = [] #list of tuples: (succ, score)
 			for succ in m_buf:
-				b_buf.temp_move(y, succ)
-				if b_buf.check_win(y):
+				b_buf.temp_move(user, succ)
+				if b_buf.check_win(user):
 					score = depth - 10
 					val = (succ, score)
 					all_val.append(val)
-					b_buf.del_move(y,succ)
-				elif b_buf.check_draw(y,z):					
+					b_buf.del_move(user,succ)
+				elif b_buf.check_draw(user,comp):					
 					val =(succ, 0)
 					all_val.append(val)
-					b_buf.del_move(y,succ)
+					b_buf.del_move(user,succ)
 				else:
 					depth = depth + 1
-					buf = max_val(b_buf, succ, y, z, score, depth) #(succ, score)
+					buf = max_val(b_buf, succ, user, comp, score, depth) #(succ, score)
 					val = (succ, buf[1]) #succ : the next node, buf[1] : max score generated by max_val
 					all_val.append(val)
 
@@ -341,13 +322,13 @@ class Application(Frame):
 			return minscore #tuple with minimum score : (next node, minimum score)
 
 		if player == True:
-			y = "X"
-			z = "O"
+			user = "X"
+			comp = "O"
 		else:
-			y = "O"
-			z = "X"
+			user = "O"
+			comp = "X"
 
-		minimax_val = max_val(b, node, y, z, 0, 0)
+		minimax_val = max_val(b, node, user, comp, 0, 0)
 
 		#print("NEXT MOVE:")
 		#print(minimax_val[0])
@@ -382,47 +363,47 @@ class Application(Frame):
 			activebackground = 'black', activeforeground = 'green', state = "disabled")
 
 		#for node 0
-		self.move0["command"] = lambda: self.makemove(0)
+		self.move0["command"] = lambda: self.makemove(self.move0,0)
 		self.move0.config(bg ='black', fg = 'green')
 		self.move0.grid({"row" : 1, "column" : 0})
 
 		#for node 1
-		self.move1["command"] = lambda: self.makemove(1)
+		self.move1["command"] = lambda: self.makemove(self.move1,1)
 		self.move1.config(bg ='black', fg = 'green')
 		self.move1.grid({"row" : 1, "column" : 1})
 
 		#for node 2
-		self.move2["command"] = lambda: self.makemove(2)
+		self.move2["command"] = lambda: self.makemove(self.move2,2)
 		self.move2.config(bg ='black', fg = 'green')
 		self.move2.grid({"row" : 1, "column" : 2})
 
 		#for node 3
-		self.move3["command"] = lambda: self.makemove(3)
+		self.move3["command"] = lambda: self.makemove(self.move3,3)
 		self.move3.config(bg ='black', fg = 'green')
 		self.move3.grid({"row" : 2, "column" : 0})
 
 		#for node 4
-		self.move4["command"] = lambda: self.makemove(4)
+		self.move4["command"] = lambda: self.makemove(self.move4,4)
 		self.move4.config(bg ='black', fg = 'green')
 		self.move4.grid({"row" : 2, "column" : 1})
 
 		#for node 5
-		self.move5["command"] = lambda: self.makemove(5)
+		self.move5["command"] = lambda: self.makemove(self.move5,5)
 		self.move5.config(bg ='black', fg = 'green')
 		self.move5.grid({"row" : 2, "column" : 2})
 
 		#for node 6
-		self.move6["command"] = lambda: self.makemove(6)
+		self.move6["command"] = lambda: self.makemove(self.move6,6)
 		self.move6.config(bg ='black', fg = 'green')
 		self.move6.grid({"row" : 3, "column" : 0})
 
 		#for node 7
-		self.move7["command"] = lambda: self.makemove(7)
+		self.move7["command"] = lambda: self.makemove(self.move7,7)
 		self.move7.config(bg ='black', fg = 'green')
 		self.move7.grid({"row" : 3, "column" : 1})
 
 		#for node 8
-		self.move8["command"] = lambda: self.makemove(8)
+		self.move8["command"] = lambda: self.makemove(self.move8,8)
 		self.move8.config(bg ='black', fg = 'green')
 		self.move8.grid({"row" : 3, "column" : 2})
 
