@@ -3,8 +3,9 @@ import random
 
 class Board:
 	'''back-end of the program'''
+	
 	def __init__(self):
-		'''initializes the board'''
+		'''initialicomes the board'''
 		self.board = [" "]*9
 
 	def __repr__(self):
@@ -14,29 +15,29 @@ class Board:
 				self.board[3], self.board[4], self.board[5], \
 				self.board[6], self.board[7], self.board[8])
 
-	def check_win(self, y):
+	def check_win(self, curr_player):
 		''' checks if the player won
 
 		input arguments:
 			- self - checks the board
-			- y - the player's character ('X' or 'O')
+			- curr_player - the player's character ('X' or 'O')
 		returns True if that player won'''
 		
-		wins = (self.board[0] == y and self.board[1] == y and self.board[2] == y) or \
-				(self.board[3] == y and self.board[4] == y and self.board[5] == y) or \
-				(self.board[6] == y and self.board[7] == y and self.board[8] == y) or \
-				(self.board[0] == y and self.board[3] == y and self.board[6] == y) or \
-				(self.board[1] == y and self.board[4] == y and self.board[7] == y) or \
-				(self.board[2] == y and self.board[5] == y and self.board[8] == y) or \
-				(self.board[0] == y and self.board[4] == y and self.board[8] == y) or \
-				(self.board[2] == y and self.board[4] == y and self.board[6] == y)
+		wins = (self.board[0] == curr_player and self.board[1] == curr_player and self.board[2] == curr_player) or \
+				(self.board[3] == curr_player and self.board[4] == curr_player and self.board[5] == curr_player) or \
+				(self.board[6] == curr_player and self.board[7] == curr_player and self.board[8] == curr_player) or \
+				(self.board[0] == curr_player and self.board[3] == curr_player and self.board[6] == curr_player) or \
+				(self.board[1] == curr_player and self.board[4] == curr_player and self.board[7] == curr_player) or \
+				(self.board[2] == curr_player and self.board[5] == curr_player and self.board[8] == curr_player) or \
+				(self.board[0] == curr_player and self.board[4] == curr_player and self.board[8] == curr_player) or \
+				(self.board[2] == curr_player and self.board[4] == curr_player and self.board[6] == curr_player)
 		return wins
 
-	def check_draw(self, y, z):
+	def check_draw(self, user, com):
 		''' (called by the "temporary board" 
 		checks if it's a draw only on the case if the board is full
 		and neither the player nor the computer won the game'''
-		if (self.empty_moves() == []) and (self.check_win(y)== False) and (self.check_win(z) == False):
+		if (self.empty_moves() == []) and (self.check_win(user)== False) and (self.check_win(com) == False):
 			#messagebox.showinfo("tic tac toe", "IT'S A DRAW!")
 			return True
 		else:
@@ -71,36 +72,36 @@ class Board:
 				moves.append(i)
 		return moves
 
-	def move(self, y, idx):
+	def move(self, user, idx):
 		''' places a move on the "permanent board"
-		returns True if y wins, and False otherwise'''
+		returns True if user wins, and False otherwise'''
 		check_empty = self.is_empty(idx)
 		if idx >=0 and idx < 9 and check_empty == True:
-			self.board[idx] = y
+			self.board[idx] = user
 		else:
-			print("Y: %s" % y)
+			print("user: %s" % user)
 			print(self)
 			raise ValueError("Invalid move")
 
 		print(self)
 
-		if self.check_win(y) == True:
-			messagebox.showinfo("tic tac toe", "%s WINS, Start New Game?" % y)
-			print("%s WINS" % y)
+		if self.check_win(user) == True:
+			messagebox.showinfo("tic tac toe", "%s WINS, Start New Game?" % user)
+			print("%s WINS" % user)
 			#self.clearBoard()
 			return True
 
 		else:
 			return False
 
-	def temp_move(self, y, idx):
+	def temp_move(self, user, idx):
 		''' places a move on the "temporary board"
-		returns True if y wins, and False otherwise'''
+		returns True if user wins, and False otherwise'''
 		check_empty = self.is_empty(idx)
 		if idx >=0 and idx < 9 and check_empty == True:
-			self.board[idx] = y
+			self.board[idx] = user
 
-		win = self.check_win(y)
+		win = self.check_win(user)
 		#if win == True:
 			#print("%s gen win.." % y)
 
@@ -113,7 +114,7 @@ class Board:
 
 		return b_buf
 
-	def del_move(self, y, idx):
+	def del_move(self, user, idx):
 		'''removes a move on the node
 		can only be called by the "temporary board" '''
 		check_empty = self.is_empty(idx)

@@ -11,7 +11,6 @@ nodes: (for reference)
 	 0 | 1 | 2 
 	 3 | 4 | 5
 	 6 | 7 | 8
-
 '''
 
 from board import Board
@@ -34,6 +33,7 @@ b = Board()
 var = IntVar()
 strn = StringVar()
 strn2 = StringVar()
+
 strn.set("SELECT A PLAYER")
 strn2.set("Choose who starts")
 
@@ -180,8 +180,8 @@ class Application(Frame):
 
 	def empty_board(self):
 		''' clears the GUI '''
-
 		global player 
+
 		self.move0["text"] = "  "
 		self.move1["text"] = "  "
 		self.move2["text"] = "  "
@@ -199,7 +199,6 @@ class Application(Frame):
 		also a helper function for the 'NEW GAME' button '''
 
 		global player
-		global var
 		
 		self.empty_board()
 		self.move0["state"] = "disabled"
